@@ -1,0 +1,45 @@
+model ResearchPaper {
+  id                   String                 @id @default(cuid())
+  metadataId           String                 @unique
+  researcherProfileId  String
+  address              String                 @unique
+  creatorPubkey        String
+  state                PaperState
+  accessFee            Float
+  version              Int                    @default(0)
+  paperContentHash     String                 @unique @db.VarChar(64)
+  totalApprovals       Int                    @default(0)
+  totalCitations       Int                    @default(0)
+  totalMints           Int                    @default(0)
+  metaDataMerkleRoot   String                 @db.VarChar(64)
+  metadata             PaperMetadata          @relation(fields: [metadataId], references: [id])
+  bump                 Int
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  researcherProfile    ResearcherProfile      @relation(fields: [researcherProfileId], references: [id])
+  peerReviews          PeerReview[]
+  reseachTokenAccounts ResearchTokenAccount[]
+}
+
+model PaperMetadata {
+  id                      String         @id @default(cuid())
+  title                   String
+  abstract                String
+  authors                 String[]
+  datePublished           String
+  domain                  String
+  tags                    String[]
+  references              String[]
+  paperImageURI           String?
+  decentralizedStorageURI String
+  researchPaper           ResearchPaper?
+}
+
+enum PaperState {
+  AwaitingPeerReview
+  InPeerReview
+  ApprovedToPublish
+  RequiresRevision
+  Published
+  Minted
+}

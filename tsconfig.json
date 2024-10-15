@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "resolveJsonModule": true,
+    "baseUrl": ".", // Sets the base directory for resolving non-relative module imports
+    "paths": {
+      "@/*": ["src/*"] // Creates an alias for the 'src' directory
+    }
+  }
+}

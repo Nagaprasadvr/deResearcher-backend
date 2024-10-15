@@ -1,0 +1,29 @@
+model PeerReview {
+    id                           String             @id @default(cuid())
+    metadataId                   String             @unique
+    reviewerResearcherProfileId  String
+    researhPaperId               String
+    address                      String
+    reviewerPubkey               String
+    paperPubkey                  String
+    qualityOfResearch            Int                @default(0)
+    potentialForRealWorldUseCase Int                @default(0)
+    domainKnowledge              Int                @default(0)
+    practicalityOfResultObtained Int                @default(0)
+    metaDataMerkleRoot           String             @db.VarChar(64)
+    metadata                     PeerReviewMetadata @relation(fields: [metadataId], references: [id])
+    bump                         Int
+    createdAt                    DateTime           @default(now())
+    updatedAt                    DateTime           @updatedAt
+    reviewerResearcherProfile    ResearcherProfile  @relation(fields: [reviewerResearcherProfileId], references: [id])
+    researchPaper                ResearchPaper      @relation(fields: [researhPaperId], references: [id])
+}
+
+model PeerReviewMetadata {
+    id             String      @id @default(cuid())
+    title          String
+    reviewComments String
+    createdAt      DateTime    @default(now())
+    updatedAt      DateTime    @updatedAt
+    peerReview     PeerReview?
+}

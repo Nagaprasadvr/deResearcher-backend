@@ -1,0 +1,14 @@
+model ResearchTokenAccount {
+    id                  String            @id @default(cuid())
+    address             String            @unique
+    researchPaperId     String
+    researcherProfileId String
+    researcherPubkey    String
+    paperPubkey         String
+    bump                Int
+    createdAt           DateTime          @default(now())
+    researchPaper       ResearchPaper     @relation(fields: [researchPaperId], references: [id])
+    researcherProfile   ResearcherProfile @relation(fields: [researcherProfileId], references: [id])
+
+    @@unique([researcherPubkey, paperPubkey], name: "researcher_paper_unique")
+}

@@ -1,0 +1,42 @@
+model ResearcherProfile {
+    id                    String                    @id @default(cuid())
+    metadataId            String                    @unique
+    address               String                    @unique
+    researcherPubkey      String                    @unique
+    name                  String
+    state                 ResearcherProfileState
+    totalPapersPublished  Int?                      @default(0)
+    totalCitations        Int?                      @default(0)
+    totalReviews          Int?                      @default(0)
+    reputation            Int?                      @default(0)
+    metaDataMerkleRoot    String                    @db.VarChar(64)
+    metadata              ResearcherProfileMetadata @relation(fields: [metadataId], references: [id])
+    bump                  Int
+    createdAt             DateTime                  @default(now())
+    updatedAt             DateTime                  @updatedAt
+    researchPapers        ResearchPaper[]
+    peerReviews           PeerReview[]
+    researchTokenAccounts ResearchTokenAccount[]
+}
+
+model ResearcherProfileMetadata {
+    id                       String             @id @default(cuid())
+    email                    String
+    organization             String?
+    bio                      String?
+    profileImageURI          String?
+    backgroundImageURI       String?
+    externalResearchProfiles String[]
+    interestedDomains        String[]
+    topPublications          String[]
+    socialLinks              String[]
+    createdAt                DateTime           @default(now())
+    updatedAt                DateTime           @updatedAt
+    researcherProfile        ResearcherProfile?
+}
+
+enum ResearcherProfileState {
+    AwaitingApproval
+    Approved
+    Rejected
+}

@@ -1,0 +1,25 @@
+{
+  "name": "deResearcher-backend",
+  "scripts": {
+    "dev": "bun run --hot src/entrypoint.ts",
+    "db:generate": "prisma migrate dev",
+    "db:migrate": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:format": "prisma format"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "@solana/web3.js": "^1.95.3",
+    "hono": "^4.6.3"
+  },
+  "devDependencies": {
+    "@metaplex-foundation/beet": "^0.7.2",
+    "@metaplex-foundation/beet-solana": "^0.4.1",
+    "@types/bun": "latest",
+    "prisma": "^5.20.0"
+  },
+  "prisma": {
+    "schema": "./src/db/prisma/schema"
+  }
+}
