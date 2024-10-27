@@ -1,0 +1,7 @@
+model Session {
+    id              String   @id @default(cuid())
+    walletSignature String   @unique
+    walletPubkey    String   @unique
+    createdAt       DateTime @default(now())
+    expiresAt       DateTime
+}

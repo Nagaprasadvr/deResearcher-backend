@@ -9,14 +9,20 @@
     "db:format": "prisma format"
   },
   "dependencies": {
-    "@prisma/client": "^5.20.0",
+    "@prisma/client": "^5.21.1",
     "@solana/web3.js": "^1.95.3",
-    "hono": "^4.6.3"
+    "bs58": "^6.0.0",
+    "crypto-js": "^4.2.0",
+    "hono": "^4.6.3",
+    "merkletreejs": "^0.4.0",
+    "tweetnacl": "^1.0.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@metaplex-foundation/beet": "^0.7.2",
     "@metaplex-foundation/beet-solana": "^0.4.1",
     "@types/bun": "latest",
+    "@types/crypto-js": "^4.2.2",
     "prisma": "^5.20.0"
   },
   "prisma": {

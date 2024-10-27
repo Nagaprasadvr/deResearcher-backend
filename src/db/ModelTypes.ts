@@ -5,10 +5,23 @@ import {
   PeerReview,
 } from "@prisma/client";
 
-export type ResearchPaperType = ResearchPaper;
+export type ResearchPaperType = ResearchPaper & {
+  peerReviews: PeerReview[];
+  researcherProfile: ResearcherProfile;
+};
 
-export type ResearchTokenAccountType = ResearchTokenAccount;
+export type ResearchTokenAccountType = ResearchTokenAccount & {
+  researchPaper: ResearchPaper;
+  researcherProfile: ResearcherProfile;
+};
 
-export type ResearcherProfileType = ResearcherProfile;
+export type ResearcherProfileType = ResearcherProfile & {
+  researchTokenAccounts: ResearchTokenAccount[];
+  researchPapers: ResearchPaper[];
+  peerReviews: PeerReview[];
+};
 
-export type PeerReviewType = PeerReview;
+export type PeerReviewType = PeerReview & {
+  researchPaper: ResearchPaper;
+  reviewerResearcherProfile: ResearcherProfile;
+};
