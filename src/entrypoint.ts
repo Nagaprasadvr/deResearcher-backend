@@ -8,6 +8,7 @@ import {
   researcherProfile,
 } from "./server/routes";
 import { getConnection } from "./utils/helpers";
+import { handle } from "hono/vercel";
 import { useDeResearcherSubscription } from "./indexer/subscription";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
@@ -44,6 +45,14 @@ api.route("/mint", mint.route);
 api.route("/merkle-tree", merkleTree.route);
 
 api.route("/auth", auth.route);
+
+const handler = handle(api);
+
+export const GET = handler;
+export const POST = handler;
+export const PATCH = handler;
+export const PUT = handler;
+export const OPTIONS = handler;
 
 export default {
   port: 5000,
