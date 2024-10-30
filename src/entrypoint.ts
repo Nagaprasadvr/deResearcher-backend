@@ -53,3 +53,5 @@ export const POST = handler;
 export const PATCH = handler;
 export const PUT = handler;
 export const OPTIONS = handler;
+
+export default api;
