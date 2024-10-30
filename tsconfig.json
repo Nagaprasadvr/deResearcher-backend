@@ -5,9 +5,9 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "resolveJsonModule": true,
-    "baseUrl": ".", // Sets the base directory for resolving non-relative module imports
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"] // Creates an alias for the 'src' directory
+      "@/*": ["src/*"]
     }
   }
 }
