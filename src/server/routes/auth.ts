@@ -7,12 +7,11 @@ import { LoginAuthZod } from "@/utils/validation";
 import { PrismaClient } from "@prisma/client";
 import { Hono } from "hono";
 import { setCookie, getCookie, deleteCookie } from "hono/cookie";
+import { db } from "@/db/conn";
 
 const maxAge = 24 * 60 * 60 * 1000; // 1 day
 
 export const route = new Hono();
-
-const prisma = new PrismaClient();
 
 // POST /auth/login
 
@@ -34,13 +33,13 @@ route.post("/login", async (c) => {
     }
 
     // Check if a session already exists for this wallet
-    let session = await prisma.session.findFirst({
+    let session = await db.session.findFirst({
       where: { walletSignature, walletPubkey },
     });
 
     if (session) {
       // If a session exists, update its expiry
-      session = await prisma.session.update({
+      session = await db.session.update({
         where: { id: session.id },
         data: { expiresAt: new Date(Date.now() + maxAge) },
       });
@@ -48,7 +47,7 @@ route.post("/login", async (c) => {
       // If no session exists, create a new one
       const expiresAt = new Date(Date.now() + maxAge);
 
-      session = await prisma.session.create({
+      session = await db.session.create({
         data: { walletSignature, walletPubkey, expiresAt },
       });
     }
@@ -89,7 +88,7 @@ route.post("/check", async (c) => {
       });
     }
 
-    const session = await prisma.session.findFirst({
+    const session = await db.session.findFirst({
       where: { walletSignature, walletPubkey },
     });
 
@@ -116,6 +115,12 @@ route.post("/check", async (c) => {
         expiresAt: session.expiresAt,
       });
     }
+
+    return toSuccessfulResponse(c, {
+      isAuthenticated: false,
+      walletSignature: null,
+      walletPubkey: null,
+    });
   } catch (error) {
     console.error("Auth check failed:", error);
     return toSuccessfulResponse(c, {
@@ -137,7 +142,7 @@ route.post("/logout", async (c) => {
       return toErrorResponse(c, "Session not found");
     }
 
-    await prisma.session.delete({
+    await db.session.delete({
       where: { walletSignature, walletPubkey },
     });
     console.log("Session deleted successfully");

@@ -3,7 +3,7 @@ model PeerReview {
     metadataId                   String             @unique
     reviewerResearcherProfileId  String
     researhPaperId               String
-    address                      String
+    address                      String             @unique
     reviewerPubkey               String
     paperPubkey                  String
     qualityOfResearch            Int                @default(0)

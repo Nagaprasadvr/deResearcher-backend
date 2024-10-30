@@ -3,10 +3,9 @@ import { toErrorResponse, toSuccessfulResponse } from "@/utils/helpers";
 import { MintResearchPaperSchema } from "@/utils/validation";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Hono } from "hono";
+import { db } from "@/db/conn";
 
 export const route = new Hono();
-
-const prisma = new PrismaClient();
 
 // GET /mint
 
@@ -21,7 +20,7 @@ route.get("/", async (c) => {
     }
 
     const researchTokenAccounts: ResearchTokenAccountType[] =
-      await prisma.researchTokenAccount.findMany({
+      await db.researchTokenAccount.findMany({
         where: dbQuery,
         include: {
           researcherProfile: true,
@@ -42,7 +41,7 @@ route.post("/", async (c) => {
     const body = await c.req.json();
 
     const newResearchTokenAccount: ResearchTokenAccountType =
-      await prisma.researchTokenAccount.create({
+      await db.researchTokenAccount.create({
         data: body,
         include: {
           researcherProfile: true,
@@ -70,7 +69,7 @@ route.post("/", async (c) => {
 
     const data = parsedDataRes.data;
 
-    const existing = await prisma.researchTokenAccount.findFirst({
+    const existing = await db.researchTokenAccount.findFirst({
       where: {
         address: data.address,
       },
@@ -81,7 +80,7 @@ route.post("/", async (c) => {
     }
 
     const newResearchTokenAccount: ResearchTokenAccountType =
-      await prisma.researchTokenAccount.create({
+      await db.researchTokenAccount.create({
         data: {
           ...data,
           researchPaper: {

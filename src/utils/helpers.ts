@@ -3,6 +3,11 @@ import { Context } from "hono";
 import solanaCrypto from "tweetnacl";
 import bs58 from "bs58";
 import { LOGIN_MESSAGE } from "./constants";
+import * as sdk from "@/lib/sdk";
+import { Prisma, PrismaClient } from "@prisma/client";
+import * as beet from "@metaplex-foundation/beet";
+import { peerReview } from "@/server/routes";
+import { connect } from "bun";
 
 export const toSuccessfulResponse = (c: Context, data: any) => {
   return c.json(data, 200);
@@ -80,3 +85,114 @@ export function getEncodedLoginMessage(pubkey: string) {
       .map((c) => c.charCodeAt(0))
   );
 }
+
+const toDbPaperState = (state: sdk.PaperState) => {
+  switch (state) {
+    case sdk.PaperState.ApprovedToPublish:
+      return "ApprovedToPublish";
+    case sdk.PaperState.AwaitingPeerReview:
+      return "AwaitingPeerReview";
+    case sdk.PaperState.InPeerReview:
+      return "InPeerReview";
+    case sdk.PaperState.RequiresRevision:
+      return "RequiresRevision";
+    case sdk.PaperState.Minted:
+      return "Minted";
+    case sdk.PaperState.Published:
+      return "Published";
+  }
+};
+
+export const updateResearchPaperDb = async (
+  researchPaper: sdk.ResearchPaper,
+  db: PrismaClient
+) => {
+  try {
+    const paper = await db.researchPaper.findUnique({
+      where: { address: researchPaper.address.toBase58() },
+    });
+
+    if (paper) {
+      await db.researchPaper.update({
+        where: { address: researchPaper.address.toBase58() },
+        data: {
+          state: toDbPaperState(researchPaper.state),
+          totalApprovals: researchPaper.totalApprovals,
+          totalCitations: researchPaper.totalCitations.toNumber(),
+          totalMints: researchPaper.totalMints.toNumber(),
+        },
+      });
+    } else {
+      console.error("Paper not found in DB");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const updatePeerReviewDb = async (
+  peerReview: sdk.PeerReview,
+  db: PrismaClient
+) => {
+  try {
+    const review = await db.peerReview.findUnique({
+      where: {
+        address: peerReview.address.toBase58(),
+      },
+    });
+
+    if (review) {
+      await db.peerReview.update({
+        where: { address: peerReview.address.toBase58() },
+        data: {
+          qualityOfResearch: peerReview.qualityOfResearch,
+          potentialForRealWorldUseCase: peerReview.potentialForRealWorldUseCase,
+          domainKnowledge: peerReview.domainKnowledge,
+          practicalityOfResultObtained: peerReview.practicalityOfResultObtained,
+        },
+      });
+    } else {
+      console.error("Review not found in DB");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const createResearchTokenAccountsDb = async (
+  researchTokenAccount: sdk.ResearchTokenAccount,
+  db: PrismaClient
+) => {
+  try {
+    const account = await db.researchTokenAccount.findUnique({
+      where: {
+        address: researchTokenAccount.address.toBase58(),
+      },
+    });
+
+    if (account) {
+      return;
+    }
+
+    await db.researchTokenAccount.create({
+      data: {
+        address: researchTokenAccount.address.toBase58(),
+        researcherPubkey: researchTokenAccount.researcherPubkey.toBase58(),
+        paperPubkey: researchTokenAccount.paperPubkey.toBase58(),
+        bump: researchTokenAccount.bump,
+        researchPaper: {
+          connect: {
+            address: researchTokenAccount.paperPubkey.toBase58(),
+          },
+        },
+        researcherProfile: {
+          connect: {
+            researcherPubkey: researchTokenAccount.researcherPubkey.toBase58(),
+          },
+        },
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};

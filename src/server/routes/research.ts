@@ -11,10 +11,9 @@ import {
   validatePublicKey,
 } from "@/utils/validation";
 import { ResearchPaperType } from "@/db/ModelTypes";
+import { db } from "@/db/conn";
 
 export const route = new Hono();
-
-const prisma = new PrismaClient();
 
 // route for /research
 
@@ -37,7 +36,7 @@ route.get("/", async (c) => {
       dbQuery.state = queryParams.research as Prisma.EnumPaperStateFilter;
     }
 
-    const papers = await prisma.researchPaper.findMany({
+    const papers: ResearchPaperType[] = await db.researchPaper.findMany({
       where: dbQuery,
       include: {
         peerReviews: true,
@@ -73,18 +72,17 @@ route.get("/:status/:paperPubkey", async (c) => {
       return toErrorResponse(c, "Invalid paper state");
     }
 
-    const paper: ResearchPaperType | null =
-      await prisma.researchPaper.findFirst({
-        where: {
-          address: paperPubkey,
-          state: status as Prisma.EnumPaperStateFilter,
-        },
-        include: {
-          peerReviews: true,
-          reseachTokenAccounts: true,
-          researcherProfile: true,
-        },
-      });
+    const paper: ResearchPaperType | null = await db.researchPaper.findFirst({
+      where: {
+        address: paperPubkey,
+        state: status as Prisma.EnumPaperStateFilter,
+      },
+      include: {
+        peerReviews: true,
+        reseachTokenAccounts: true,
+        researcherProfile: true,
+      },
+    });
 
     if (!paper) {
       return toErrorResponse(
@@ -112,7 +110,7 @@ route.post("/create", async (c) => {
 
     const safeData = parsedDataResult.data;
 
-    const paper: ResearchPaperType = await prisma.researchPaper.create({
+    const paper: ResearchPaperType = await db.researchPaper.create({
       data: {
         address: safeData.address,
         creatorPubkey: safeData.creatorPubkey,
@@ -138,7 +136,7 @@ route.post("/create", async (c) => {
       },
     });
 
-    return toSuccessfulResponse(c, paper as ResearchPaperType);
+    return toSuccessfulResponse(c, paper);
   } catch (error: any) {
     return handleErr(c, error, "Error in creating research paper");
   }

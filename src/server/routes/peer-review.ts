@@ -3,6 +3,7 @@ import { toErrorResponse, toSuccessfulResponse } from "@/utils/helpers";
 import { AddPeerReviewSchema } from "@/utils/validation";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { PeerReviewType } from "@/db/ModelTypes";
+import { db } from "@/db/conn";
 
 export const route = new Hono();
 
@@ -25,7 +26,7 @@ route.get("/", async (c) => {
       dbQuery.reviewerPubkey = reviewerPubkey;
     }
 
-    const peerReviews: PeerReviewType[] = await prisma.peerReview.findMany({
+    const peerReviews: PeerReviewType[] = await db.peerReview.findMany({
       where: dbQuery,
       include: {
         researchPaper: true,
@@ -55,7 +56,7 @@ route.post("/create", async (c) => {
     const safeData = parsedDataResult.data;
 
     // Validate that the reviewer exists
-    const reviewer = await prisma.researcherProfile.findUnique({
+    const reviewer = await db.researcherProfile.findUnique({
       where: {
         researcherPubkey: safeData.reviewerPubkey,
       },
@@ -66,7 +67,7 @@ route.post("/create", async (c) => {
     }
 
     // Validate that the paper exists
-    const paper = await prisma.researchPaper.findUnique({
+    const paper = await db.researchPaper.findUnique({
       where: {
         address: safeData.paperPubkey,
       },
@@ -77,7 +78,7 @@ route.post("/create", async (c) => {
     }
 
     // Create the new PeerReview document
-    const newPeerReview: PeerReviewType = await prisma.peerReview.create({
+    const newPeerReview: PeerReviewType = await db.peerReview.create({
       data: {
         ...safeData,
         metadata: {

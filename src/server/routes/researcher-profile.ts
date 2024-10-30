@@ -6,10 +6,9 @@ import {
 } from "@/utils/validation";
 import { Prisma, PrismaClient, ResearcherProfileState } from "@prisma/client";
 import { Hono } from "hono";
+import { db } from "@/db/conn";
 
 export const route = new Hono();
-
-const prisma = new PrismaClient();
 
 // GET /researcher-profile
 
@@ -24,7 +23,7 @@ route.get("/", async (c) => {
     }
 
     const researcherProfile: ResearcherProfileType[] =
-      await prisma.researcherProfile.findMany({
+      await db.researcherProfile.findMany({
         where: dbQuery,
         include: {
           metadata: true,
@@ -33,10 +32,6 @@ route.get("/", async (c) => {
           researchTokenAccounts: true,
         },
       });
-
-    if (!researcherProfile || researcherProfile.length === 0) {
-      return toErrorResponse(c, "Researcher profile not found");
-    }
 
     return toSuccessfulResponse(c, researcherProfile);
   } catch (error: any) {
@@ -51,7 +46,7 @@ route.get("/:pubkey", async (c) => {
     const pubkey = c.req.param("pubkey");
 
     const researcherProfile: ResearcherProfileType | null =
-      await prisma.researcherProfile.findUnique({
+      await db.researcherProfile.findUnique({
         where: {
           researcherPubkey: pubkey,
         },
@@ -91,7 +86,7 @@ route.post("/create", async (c) => {
     }
 
     const researcherProfile: ResearcherProfileType =
-      await prisma.researcherProfile.create({
+      await db.researcherProfile.create({
         data: {
           address: safeData.address,
           researcherPubkey: safeData.researcherPubkey,
