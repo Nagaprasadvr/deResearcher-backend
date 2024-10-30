@@ -26,8 +26,7 @@
     "@metaplex-foundation/beet-solana": "^0.4.1",
     "@types/bun": "latest",
     "@types/crypto-js": "^4.2.2",
-    "prisma": "^5.20.0",
-    "vercel": "^37.13.0"
+    "prisma": "^5.20.0"
   },
   "prisma": {
     "schema": "./src/db/prisma/schema"

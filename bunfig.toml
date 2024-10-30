@@ -1,5 +1,0 @@
-# bunfig.toml
-[builds]
-target = "bun"         # Specifies that this build is for the Bun runtime, suitable for server-side
-entry = "src/index.ts" # Adjust this to match the entry file for your Hono app
-outdir = "dist"

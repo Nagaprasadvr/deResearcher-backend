@@ -2,12 +2,12 @@ import {
   toErrorResponse,
   toSuccessfulResponse,
   verifySignature,
-} from "api/utils/helpers";
-import { LoginAuthZod } from "api/utils/validation";
+} from "src/utils/helpers";
+import { LoginAuthZod } from "src/utils/validation";
 import { PrismaClient } from "@prisma/client";
 import { Hono } from "hono";
 import { setCookie, getCookie, deleteCookie } from "hono/cookie";
-import { db } from "api/db/conn";
+import { db } from "src/db/conn";
 
 const maxAge = 24 * 60 * 60 * 1000; // 1 day
 

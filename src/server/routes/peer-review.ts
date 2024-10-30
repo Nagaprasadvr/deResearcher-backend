@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import { toErrorResponse, toSuccessfulResponse } from "api/utils/helpers";
-import { AddPeerReviewSchema } from "api/utils/validation";
+import { toErrorResponse, toSuccessfulResponse } from "src/utils/helpers";
+import { AddPeerReviewSchema } from "src/utils/validation";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { PeerReviewType } from "api/db/ModelTypes";
-import { db } from "api/db/conn";
+import { PeerReviewType } from "src/db/ModelTypes";
+import { db } from "src/db/conn";
 
 export const route = new Hono();
 

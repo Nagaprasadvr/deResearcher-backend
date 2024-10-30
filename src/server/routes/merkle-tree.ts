@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { toSuccessfulResponse, toErrorResponse } from "api/utils/helpers";
+import { toSuccessfulResponse, toErrorResponse } from "src/utils/helpers";
 import { MerkleTree } from "merkletreejs";
 import SHA256 from "crypto-js/sha256";
 

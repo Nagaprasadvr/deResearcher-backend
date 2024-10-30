@@ -4,11 +4,11 @@ import {
   ProgramAccountSubscriptionConfig,
 } from "@solana/web3.js";
 
-import * as sdk from "api/lib/sdk";
-import { updateResearchPaperDb } from "api/utils/helpers";
+import * as sdk from "src/lib/sdk";
+import { updatePeerReviewDb } from "src/utils/helpers";
 import { PrismaClient } from "@prisma/client";
 
-export const useResearchPaperSubscription = (
+export const usePeerReviewSubscription = (
   connection: Connection,
   db: PrismaClient
 ) => {
@@ -16,18 +16,18 @@ export const useResearchPaperSubscription = (
     commitment: "confirmed",
     filters: [
       {
-        dataSize: sdk.ResearchPaper.byteSize,
+        dataSize: sdk.PeerReview.byteSize,
       },
     ],
   };
 
   const onAccountChange = async (keyedAccountInfo: KeyedAccountInfo) => {
     try {
-      const [researchPaper, _bytesRead] = sdk.ResearchPaper.fromAccountInfo(
+      const [peerReview, _bytesRead] = sdk.PeerReview.fromAccountInfo(
         keyedAccountInfo.accountInfo
       );
 
-      await updateResearchPaperDb(researchPaper, db);
+      await updatePeerReviewDb(peerReview, db);
     } catch (e) {
       console.log(e);
     }

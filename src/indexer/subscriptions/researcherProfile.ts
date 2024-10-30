@@ -4,9 +4,9 @@ import {
   ProgramAccountSubscriptionConfig,
 } from "@solana/web3.js";
 
-import * as sdk from "api/lib/sdk";
+import * as sdk from "src/lib/sdk";
 import { PrismaClient } from "@prisma/client";
-import { updateResearcherProfileDb } from "api/utils/helpers";
+import { updateResearcherProfileDb } from "src/utils/helpers";
 
 export const useResearcherProfilerSubscription = (
   connection: Connection,

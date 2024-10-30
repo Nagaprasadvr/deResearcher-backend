@@ -1,12 +1,12 @@
-import { ResearcherProfileType } from "api/db/ModelTypes";
-import { toErrorResponse, toSuccessfulResponse } from "api/utils/helpers";
+import { ResearcherProfileType } from "src/db/ModelTypes";
+import { toErrorResponse, toSuccessfulResponse } from "src/utils/helpers";
 import {
   CreateResearcherProfileZod,
   validatePublicKey,
-} from "api/utils/validation";
+} from "src/utils/validation";
 import { Prisma, PrismaClient, ResearcherProfileState } from "@prisma/client";
 import { Hono } from "hono";
-import { db } from "api/db/conn";
+import { db } from "src/db/conn";
 
 export const route = new Hono();
 
