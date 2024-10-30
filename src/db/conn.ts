@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { env } from "bun";
 
 // Define a global variable to hold the Prisma client instance
 const globalForPrisma = global as unknown as {
@@ -10,7 +9,9 @@ const globalForPrisma = global as unknown as {
 const createPrismaClient = () => {
   return new PrismaClient({
     log:
-      env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+      process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
   });
 };
 
