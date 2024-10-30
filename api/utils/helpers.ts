@@ -3,10 +3,10 @@ import { Context } from "hono";
 import solanaCrypto from "tweetnacl";
 import bs58 from "bs58";
 import { LOGIN_MESSAGE } from "./constants";
-import * as sdk from "@/lib/sdk";
+import * as sdk from "api/lib/sdk";
 import { Prisma, PrismaClient } from "@prisma/client";
 import * as beet from "@metaplex-foundation/beet";
-import { peerReview } from "@/server/routes";
+import { peerReview } from "api/server/routes";
 import { connect } from "bun";
 
 export const toSuccessfulResponse = (c: Context, data: any) => {

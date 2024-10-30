@@ -4,8 +4,8 @@ import {
   ProgramAccountSubscriptionConfig,
 } from "@solana/web3.js";
 
-import * as sdk from "@/lib/sdk";
-import { updatePeerReviewDb } from "@/utils/helpers";
+import * as sdk from "api/lib/sdk";
+import { updatePeerReviewDb } from "api/utils/helpers";
 import { PrismaClient } from "@prisma/client";
 
 export const usePeerReviewSubscription = (

@@ -3,7 +3,7 @@ import { useResearchPaperSubscription } from "./subscriptions/researchPaper";
 import { useResearcherProfilerSubscription } from "./subscriptions/researcherProfile";
 import { useResearchTokenSubscription } from "./subscriptions/researchTokenAccount";
 import { Connection } from "@solana/web3.js";
-import { Subscriptions } from "@/utils/types";
+import { Subscriptions } from "api/utils/types";
 import { PrismaClient } from "@prisma/client";
 
 export const useDeResearcherSubscription = (

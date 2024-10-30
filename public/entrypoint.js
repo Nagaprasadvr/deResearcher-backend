@@ -45700,7 +45700,7 @@ var Hono2 = class extends Hono {
   }
 };
 
-// src/server/routes/research.ts
+// api/server/routes/research.ts
 var exports_research = {};
 __export(exports_research, {
   route: () => {
@@ -45710,7 +45710,7 @@ __export(exports_research, {
   }
 });
 
-// src/utils/helpers.ts
+// api/utils/helpers.ts
 var web312 = __toESM(require_index_cjs(), 1);
 var import_tweetnacl = __toESM(require_nacl_fast(), 1);
 
@@ -45845,12 +45845,12 @@ var esm_default = base;
 var ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 var esm_default2 = esm_default(ALPHABET);
 
-// src/utils/constants.ts
+// api/utils/constants.ts
 var LOGIN_MESSAGE = "Login to deresearcher";
-// src/lib/sdk/src/index.ts
+// api/lib/sdk/src/index.ts
 var web311 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/accounts/PeerReview.ts
+// api/lib/sdk/src/accounts/PeerReview.ts
 var web3 = __toESM(require_index_cjs(), 1);
 var beetSolana = __toESM(require_beet_solana(), 1);
 var beet = __toESM(require_beet(), 1);
@@ -45932,12 +45932,12 @@ var peerReviewBeet = new beet.BeetStruct([
   ["metaDataMerkleRoot", beet.uniformFixedSizeArray(beet.u8, 64)],
   ["bump", beet.u8]
 ], PeerReview.fromArgs, "PeerReview");
-// src/lib/sdk/src/accounts/ResearchPaper.ts
+// api/lib/sdk/src/accounts/ResearchPaper.ts
 var web32 = __toESM(require_index_cjs(), 1);
 var beet3 = __toESM(require_beet(), 1);
 var beetSolana2 = __toESM(require_beet_solana(), 1);
 
-// src/lib/sdk/src/types/PaperState.ts
+// api/lib/sdk/src/types/PaperState.ts
 var beet2 = __toESM(require_beet(), 1);
 var PaperState;
 (function(PaperState2) {
@@ -45950,7 +45950,7 @@ var PaperState;
 })(PaperState || (PaperState = {}));
 var paperStateBeet = beet2.fixedScalarEnum(PaperState);
 
-// src/lib/sdk/src/accounts/ResearchPaper.ts
+// api/lib/sdk/src/accounts/ResearchPaper.ts
 class ResearchPaper {
   address;
   creatorPubkey;
@@ -46056,7 +46056,7 @@ var researchPaperBeet = new beet3.BeetStruct([
   ["metaDataMerkleRoot", beet3.uniformFixedSizeArray(beet3.u8, 64)],
   ["bump", beet3.u8]
 ], ResearchPaper.fromArgs, "ResearchPaper");
-// src/lib/sdk/src/accounts/ResearchTokenAccount.ts
+// api/lib/sdk/src/accounts/ResearchTokenAccount.ts
 var web33 = __toESM(require_index_cjs(), 1);
 var beetSolana3 = __toESM(require_beet_solana(), 1);
 var beet4 = __toESM(require_beet(), 1);
@@ -46118,12 +46118,12 @@ var researchTokenAccountBeet = new beet4.BeetStruct([
   ["researcherPubkey", beetSolana3.publicKey],
   ["bump", beet4.u8]
 ], ResearchTokenAccount.fromArgs, "ResearchTokenAccount");
-// src/lib/sdk/src/accounts/ResearcherProfile.ts
+// api/lib/sdk/src/accounts/ResearcherProfile.ts
 var web34 = __toESM(require_index_cjs(), 1);
 var beet6 = __toESM(require_beet(), 1);
 var beetSolana4 = __toESM(require_beet_solana(), 1);
 
-// src/lib/sdk/src/types/ResearcherProfileState.ts
+// api/lib/sdk/src/types/ResearcherProfileState.ts
 var beet5 = __toESM(require_beet(), 1);
 var ResearcherProfileState;
 (function(ResearcherProfileState2) {
@@ -46133,7 +46133,7 @@ var ResearcherProfileState;
 })(ResearcherProfileState || (ResearcherProfileState = {}));
 var researcherProfileStateBeet = beet5.fixedScalarEnum(ResearcherProfileState);
 
-// src/lib/sdk/src/accounts/ResearcherProfile.ts
+// api/lib/sdk/src/accounts/ResearcherProfile.ts
 class ResearcherProfile {
   address;
   researcherPubkey;
@@ -46245,7 +46245,7 @@ var researcherProfileBeet = new beet6.BeetStruct([
   ["metaDataMerkleRoot", beet6.uniformFixedSizeArray(beet6.u8, 64)],
   ["bump", beet6.u8]
 ], ResearcherProfile.fromArgs, "ResearcherProfile");
-// src/lib/sdk/src/errors/index.ts
+// api/lib/sdk/src/errors/index.ts
 var createErrorFromCodeLookup = new Map;
 var createErrorFromNameLookup = new Map;
 
@@ -46495,11 +46495,11 @@ class ResearchTokenAccountAlreadyExistsError extends Error {
 }
 createErrorFromCodeLookup.set(18, () => new ResearchTokenAccountAlreadyExistsError);
 createErrorFromNameLookup.set("ResearchTokenAccountAlreadyExists", () => new ResearchTokenAccountAlreadyExistsError);
-// src/lib/sdk/src/instructions/AddPeerReview.ts
+// api/lib/sdk/src/instructions/AddPeerReview.ts
 var beet8 = __toESM(require_beet(), 1);
 var web35 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/types/AddPeerReview.ts
+// api/lib/sdk/src/types/AddPeerReview.ts
 var beet7 = __toESM(require_beet(), 1);
 var addPeerReviewBeet = new beet7.FixableBeetArgsStruct([
   ["qualityOfResearch", beet7.u8],
@@ -46510,29 +46510,29 @@ var addPeerReviewBeet = new beet7.FixableBeetArgsStruct([
   ["pdaBump", beet7.u8]
 ], "AddPeerReview");
 
-// src/lib/sdk/src/instructions/AddPeerReview.ts
+// api/lib/sdk/src/instructions/AddPeerReview.ts
 var AddPeerReviewStruct = new beet8.FixableBeetArgsStruct([
   ["instructionDiscriminator", beet8.u8],
   ["addPeerReview", addPeerReviewBeet]
 ], "AddPeerReviewInstructionArgs");
-// src/lib/sdk/src/instructions/CheckAndAssignReputation.ts
+// api/lib/sdk/src/instructions/CheckAndAssignReputation.ts
 var beet10 = __toESM(require_beet(), 1);
 var web36 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/types/CheckAndAssignReputation.ts
+// api/lib/sdk/src/types/CheckAndAssignReputation.ts
 var beet9 = __toESM(require_beet(), 1);
 var checkAndAssignReputationBeet = new beet9.BeetArgsStruct([["reputation", beet9.u8]], "CheckAndAssignReputation");
 
-// src/lib/sdk/src/instructions/CheckAndAssignReputation.ts
+// api/lib/sdk/src/instructions/CheckAndAssignReputation.ts
 var CheckAndAssignReputationStruct = new beet10.BeetArgsStruct([
   ["instructionDiscriminator", beet10.u8],
   ["checkAndAssignReputation", checkAndAssignReputationBeet]
 ], "CheckAndAssignReputationInstructionArgs");
-// src/lib/sdk/src/instructions/CreateResearchePaper.ts
+// api/lib/sdk/src/instructions/CreateResearchePaper.ts
 var beet12 = __toESM(require_beet(), 1);
 var web37 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/types/CreateResearchePaper.ts
+// api/lib/sdk/src/types/CreateResearchePaper.ts
 var beet11 = __toESM(require_beet(), 1);
 var createResearchePaperBeet = new beet11.FixableBeetArgsStruct([
   ["accessFee", beet11.u32],
@@ -46541,16 +46541,16 @@ var createResearchePaperBeet = new beet11.FixableBeetArgsStruct([
   ["pdaBump", beet11.u8]
 ], "CreateResearchePaper");
 
-// src/lib/sdk/src/instructions/CreateResearchePaper.ts
+// api/lib/sdk/src/instructions/CreateResearchePaper.ts
 var CreateResearchePaperStruct = new beet12.FixableBeetArgsStruct([
   ["instructionDiscriminator", beet12.u8],
   ["createResearchePaper", createResearchePaperBeet]
 ], "CreateResearchePaperInstructionArgs");
-// src/lib/sdk/src/instructions/CreateResearcherProfile.ts
+// api/lib/sdk/src/instructions/CreateResearcherProfile.ts
 var beet14 = __toESM(require_beet(), 1);
 var web38 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/types/CreateResearcherProfile.ts
+// api/lib/sdk/src/types/CreateResearcherProfile.ts
 var beet13 = __toESM(require_beet(), 1);
 var createResearcherProfileBeet = new beet13.FixableBeetArgsStruct([
   ["name", beet13.utf8String],
@@ -46558,41 +46558,41 @@ var createResearcherProfileBeet = new beet13.FixableBeetArgsStruct([
   ["pdaBump", beet13.u8]
 ], "CreateResearcherProfile");
 
-// src/lib/sdk/src/instructions/CreateResearcherProfile.ts
+// api/lib/sdk/src/instructions/CreateResearcherProfile.ts
 var CreateResearcherProfileStruct = new beet14.FixableBeetArgsStruct([
   ["instructionDiscriminator", beet14.u8],
   ["createResearcherProfile", createResearcherProfileBeet]
 ], "CreateResearcherProfileInstructionArgs");
-// src/lib/sdk/src/instructions/MintResearchPaper.ts
+// api/lib/sdk/src/instructions/MintResearchPaper.ts
 var beet16 = __toESM(require_beet(), 1);
 var web39 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/types/MintResearchPaper.ts
+// api/lib/sdk/src/types/MintResearchPaper.ts
 var beet15 = __toESM(require_beet(), 1);
 var mintResearchPaperBeet = new beet15.BeetArgsStruct([["pdaBump", beet15.u8]], "MintResearchPaper");
 
-// src/lib/sdk/src/instructions/MintResearchPaper.ts
+// api/lib/sdk/src/instructions/MintResearchPaper.ts
 var MintResearchPaperStruct = new beet16.BeetArgsStruct([
   ["instructionDiscriminator", beet16.u8],
   ["mintResearchPaper", mintResearchPaperBeet]
 ], "MintResearchPaperInstructionArgs");
-// src/lib/sdk/src/instructions/PublishPaper.ts
+// api/lib/sdk/src/instructions/PublishPaper.ts
 var beet18 = __toESM(require_beet(), 1);
 var web310 = __toESM(require_index_cjs(), 1);
 
-// src/lib/sdk/src/types/PublishPaper.ts
+// api/lib/sdk/src/types/PublishPaper.ts
 var beet17 = __toESM(require_beet(), 1);
 var publishPaperBeet = new beet17.BeetArgsStruct([["pdaBump", beet17.u8]], "PublishPaper");
 
-// src/lib/sdk/src/instructions/PublishPaper.ts
+// api/lib/sdk/src/instructions/PublishPaper.ts
 var PublishPaperStruct = new beet18.BeetArgsStruct([
   ["instructionDiscriminator", beet18.u8],
   ["publishPaper", publishPaperBeet]
 ], "PublishPaperInstructionArgs");
-// src/lib/sdk/src/index.ts
+// api/lib/sdk/src/index.ts
 var PROGRAM_ADDRESS = "BdtzNv4J5DSCA52xK6KLyKG5qorajuwfmJV2WivPkRsW";
 var PROGRAM_ID = new web311.PublicKey(PROGRAM_ADDRESS);
-// src/utils/helpers.ts
+// api/utils/helpers.ts
 function verifySignature(signature, pubkey) {
   return import_tweetnacl.default.sign.detached.verify(getEncodedLoginMessage(pubkey), esm_default2.decode(signature), esm_default2.decode(pubkey));
 }
@@ -46629,7 +46629,7 @@ var minimizePubkey = (pubkey) => {
   return pubkey.slice(0, 4) + "..." + pubkey.slice(-4);
 };
 
-// src/server/routes/research.ts
+// api/server/routes/research.ts
 var client2 = __toESM(require_default2(), 1);
 
 // node_modules/zod/lib/index.mjs
@@ -50494,7 +50494,7 @@ var z = Object.freeze({
   ZodError
 });
 
-// src/utils/validation.ts
+// api/utils/validation.ts
 var CreateResearchPaperZod = z.object({
   address: z.string(),
   creatorPubkey: z.string(),
@@ -50571,7 +50571,7 @@ var validatePublicKey = (key) => {
   return SOLANA_PUBLIC_KEY_REGEX.test(key);
 };
 
-// src/db/conn.ts
+// api/db/conn.ts
 var client = __toESM(require_default2(), 1);
 var globalForPrisma = global;
 var createPrismaClient = () => {
@@ -50582,7 +50582,7 @@ var createPrismaClient = () => {
 globalForPrisma.prisma = globalForPrisma.prisma ?? createPrismaClient();
 var db = globalForPrisma.prisma;
 
-// src/server/routes/research.ts
+// api/server/routes/research.ts
 var route = new Hono2;
 route.get("/", async (c) => {
   try {
@@ -50680,7 +50680,7 @@ route.post("/create", async (c) => {
     return handleErr(c, error, "Error in creating research paper");
   }
 });
-// src/server/routes/researcher-profile.ts
+// api/server/routes/researcher-profile.ts
 var exports_researcher_profile = {};
 __export(exports_researcher_profile, {
   route: () => {
@@ -50768,7 +50768,7 @@ route2.post("/create", async (c) => {
     return toErrorResponse(c, "Error in creating researcher profile");
   }
 });
-// src/server/routes/merkle-tree.ts
+// api/server/routes/merkle-tree.ts
 var exports_merkle_tree = {};
 __export(exports_merkle_tree, {
   route: () => {
@@ -50816,7 +50816,7 @@ route3.post("/generate", async (c) => {
     return toErrorResponse(c, "Error in generating merkle root");
   }
 });
-// src/server/routes/peer-review.ts
+// api/server/routes/peer-review.ts
 var exports_peer_review = {};
 __export(exports_peer_review, {
   route: () => {
@@ -50912,7 +50912,7 @@ route4.post("/create", async (c) => {
     return toErrorResponse(c, "Error creating Peer Review");
   }
 });
-// src/server/routes/auth.ts
+// api/server/routes/auth.ts
 var exports_auth = {};
 __export(exports_auth, {
   route: () => {
@@ -51047,7 +51047,7 @@ var deleteCookie = (c, name, opt) => {
   return deletedCookie;
 };
 
-// src/server/routes/auth.ts
+// api/server/routes/auth.ts
 var maxAge = 86400000;
 var route5 = new Hono2;
 route5.post("/login", async (c) => {
@@ -51159,7 +51159,7 @@ route5.post("/logout", async (c) => {
     return toErrorResponse(c, "Error logging out");
   }
 });
-// src/server/routes/mint.ts
+// api/server/routes/mint.ts
 var exports_mint = {};
 __export(exports_mint, {
   route: () => {
@@ -51376,7 +51376,7 @@ var logger = (fn = console.log) => {
   };
 };
 
-// src/entrypoint.ts
+// api/entrypoint.ts
 var api = new Hono2().basePath("/api");
 api.use("/", cors());
 api.use(logger());

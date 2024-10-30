@@ -3,15 +3,15 @@ import {
   toSuccessfulResponse,
   handleErr,
   toErrorResponse,
-} from "@/utils/helpers";
+} from "api/utils/helpers";
 import { PrismaClient, Prisma, PaperState } from "@prisma/client";
 import {
   CreateResearchPaperZod,
   validatePaperState,
   validatePublicKey,
-} from "@/utils/validation";
-import { ResearchPaperType } from "@/db/ModelTypes";
-import { db } from "@/db/conn";
+} from "api/utils/validation";
+import { ResearchPaperType } from "api/db/ModelTypes";
+import { db } from "api/db/conn";
 
 export const route = new Hono();
 
