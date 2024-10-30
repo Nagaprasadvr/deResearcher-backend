@@ -54,7 +54,4 @@ export const PATCH = handler;
 export const PUT = handler;
 export const OPTIONS = handler;
 
-export default {
-  port: 5000,
-  fetch: api.fetch,
-};
+export default api;
