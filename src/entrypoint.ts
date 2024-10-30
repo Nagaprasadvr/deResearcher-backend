@@ -12,6 +12,7 @@ import { useDeResearcherSubscription } from "./indexer/subscription";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+
 // import { db } from "./db/conn";
 
 // // This is the entrypoint for the API server
@@ -46,6 +47,6 @@ api.route("/merkle-tree", merkleTree.route);
 api.route("/auth", auth.route);
 
 export default {
-  port: 5000,
+  port: 3000,
   fetch: api.fetch,
 };
