@@ -5,8 +5,13 @@ import {
 } from "@solana/web3.js";
 
 import * as sdk from "@/lib/sdk";
+import { createResearchTokenAccountsDb } from "@/utils/helpers";
+import { PrismaClient } from "@prisma/client";
 
-export const useResearchTokenSubscription = (connection: Connection) => {
+export const useResearchTokenSubscription = (
+  connection: Connection,
+  db: PrismaClient
+) => {
   const filters: ProgramAccountSubscriptionConfig = {
     commitment: "confirmed",
     filters: [
@@ -21,9 +26,7 @@ export const useResearchTokenSubscription = (connection: Connection) => {
       const [researchTokenAccount, _bytesRead] =
         sdk.ResearchTokenAccount.fromAccountInfo(keyedAccountInfo.accountInfo);
 
-      // push to DB
-      // check if the researcherProfile is already in the DB
-      // then accordingly update or insert
+      await createResearchTokenAccountsDb(researchTokenAccount, db);
     } catch (e) {
       console.log(e);
     }

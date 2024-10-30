@@ -86,6 +86,10 @@ export function getEncodedLoginMessage(pubkey: string) {
   );
 }
 
+const toMetadataMerkleRootString = (metadataMerkleRoot: number[]) => {
+  return Buffer.from(metadataMerkleRoot).toString("utf-8");
+};
+
 const toDbPaperState = (state: sdk.PaperState) => {
   switch (state) {
     case sdk.PaperState.ApprovedToPublish:
@@ -100,6 +104,52 @@ const toDbPaperState = (state: sdk.PaperState) => {
       return "Minted";
     case sdk.PaperState.Published:
       return "Published";
+  }
+};
+
+const toDBResearcherProfileState = (state: sdk.ResearcherProfileState) => {
+  switch (state) {
+    case sdk.ResearcherProfileState.Approved:
+      return "Approved";
+    case sdk.ResearcherProfileState.AwaitingApproval:
+      return "AwaitingApproval";
+    case sdk.ResearcherProfileState.Rejected:
+      return "Rejected";
+  }
+};
+
+export const updateResearcherProfileDb = async (
+  researcherProfile: sdk.ResearcherProfile,
+  db: PrismaClient
+) => {
+  try {
+    const profile = await db.researcherProfile.findUnique({
+      where: {
+        researcherPubkey: researcherProfile.researcherPubkey.toBase58(),
+      },
+    });
+
+    if (profile) {
+      await db.researcherProfile.update({
+        where: {
+          researcherPubkey: researcherProfile.researcherPubkey.toBase58(),
+        },
+        data: {
+          state: toDBResearcherProfileState(researcherProfile.state),
+          totalPapersPublished: researcherProfile.totalPapersPublished,
+          totalCitations: researcherProfile.totalCitations.toNumber(),
+          totalReviews: researcherProfile.totalReviews,
+          reputation: researcherProfile.reputation,
+          metaDataMerkleRoot: toMetadataMerkleRootString(
+            researcherProfile.metaDataMerkleRoot
+          ),
+        },
+      });
+    } else {
+      console.error("Profile not found in DB");
+    }
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -120,6 +170,9 @@ export const updateResearchPaperDb = async (
           totalApprovals: researchPaper.totalApprovals,
           totalCitations: researchPaper.totalCitations.toNumber(),
           totalMints: researchPaper.totalMints.toNumber(),
+          metaDataMerkleRoot: toMetadataMerkleRootString(
+            researchPaper.metaDataMerkleRoot
+          ),
         },
       });
     } else {
@@ -149,6 +202,9 @@ export const updatePeerReviewDb = async (
           potentialForRealWorldUseCase: peerReview.potentialForRealWorldUseCase,
           domainKnowledge: peerReview.domainKnowledge,
           practicalityOfResultObtained: peerReview.practicalityOfResultObtained,
+          metaDataMerkleRoot: toMetadataMerkleRootString(
+            peerReview.metaDataMerkleRoot
+          ),
         },
       });
     } else {

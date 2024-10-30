@@ -12,14 +12,15 @@ import { useDeResearcherSubscription } from "./indexer/subscription";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { db } from "./db/conn";
 
 // This is the entrypoint for the API server
-// export const solanaConnection = getConnection("devnet");
+const solanaConnection = getConnection("devnet");
 
-// // Subscriptions
-// const subscriptions = useDeResearcherSubscription(solanaConnection);
+// Subscriptions
+const subscriptions = useDeResearcherSubscription(solanaConnection, db);
 
-// console.log("Subscriptions", subscriptions);
+console.log("Subscriptions", subscriptions);
 
 // API server
 const api = new Hono().basePath("/api");

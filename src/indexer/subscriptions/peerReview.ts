@@ -5,8 +5,13 @@ import {
 } from "@solana/web3.js";
 
 import * as sdk from "@/lib/sdk";
+import { updatePeerReviewDb } from "@/utils/helpers";
+import { PrismaClient } from "@prisma/client";
 
-export const usePeerReviewSubscription = (connection: Connection) => {
+export const usePeerReviewSubscription = (
+  connection: Connection,
+  db: PrismaClient
+) => {
   const filters: ProgramAccountSubscriptionConfig = {
     commitment: "confirmed",
     filters: [
@@ -22,9 +27,7 @@ export const usePeerReviewSubscription = (connection: Connection) => {
         keyedAccountInfo.accountInfo
       );
 
-      // push to DB
-      // check if the researcherProfile is already in the DB
-      // then accordingly update or insert
+      await updatePeerReviewDb(peerReview, db);
     } catch (e) {
       console.log(e);
     }
