@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import { toSuccessfulResponse, toErrorResponse } from "src/utils/helpers";
+import { toSuccessfulResponse, toErrorResponse } from "@/utils/helpers";
 import { MerkleTree } from "merkletreejs";
-import SHA256 from "crypto-js/sha256";
+import SHA256 from "crypto-js/sha256.js";
 
 function removeHexPrefix(hex: string): string {
   if (hex.startsWith("0x")) {

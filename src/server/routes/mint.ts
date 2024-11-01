@@ -1,9 +1,9 @@
-import { ResearchTokenAccountType } from "src/db/ModelTypes";
-import { toErrorResponse, toSuccessfulResponse } from "src/utils/helpers";
-import { MintResearchPaperSchema } from "src/utils/validation";
+import { ResearchTokenAccountType } from "@/db/ModelTypes";
+import { toErrorResponse, toSuccessfulResponse } from "@/utils/helpers";
+import { MintResearchPaperSchema } from "@/utils/validation";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Hono } from "hono";
-import { db } from "src/db/conn";
+import { db } from "@/db/conn";
 
 export const route = new Hono();
 

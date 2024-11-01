@@ -12,6 +12,7 @@ import { useDeResearcherSubscription } from "./indexer/subscription";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { serve } from "@hono/node-server";
 
 // import { db } from "./db/conn";
 
@@ -24,7 +25,7 @@ import { logger } from "hono/logger";
 // console.log("Subscriptions", subscriptions);
 
 // API server
-const api = new Hono().basePath("/api");
+export const api = new Hono().basePath("/api");
 
 api.use("/", cors());
 api.use(logger());
@@ -46,7 +47,10 @@ api.route("/merkle-tree", merkleTree.route);
 
 api.route("/auth", auth.route);
 
-export default {
-  port: 3000,
+console.log(`Server is running on port http://localhost:${5000}`);
+
+
+serve({
   fetch: api.fetch,
-};
+  port: 5000,
+});

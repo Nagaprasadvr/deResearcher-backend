@@ -4,8 +4,8 @@ import {
   ProgramAccountSubscriptionConfig,
 } from "@solana/web3.js";
 
-import * as sdk from "src/lib/sdk";
-import { createResearchTokenAccountsDb } from "src/utils/helpers";
+import * as sdk from "@/lib/sdk";
+import { createResearchTokenAccountsDb } from "@/utils/helpers";
 import { PrismaClient } from "@prisma/client";
 
 export const useResearchTokenSubscription = (
