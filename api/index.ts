@@ -1,6 +1,6 @@
 import { handle } from "hono/vercel";
 
-import { api } from "../dist/entrypoint";
+import { api } from "../dist/index";
 
 export const runtime = "edge";
 
